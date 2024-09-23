@@ -1,0 +1,24 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+    <h2>Your Availability Timetable</h2>
+    <table>
+        <tr>
+            <th>Day</th>
+            <th>Action</th>
+        </tr>
+        {% for day in object_list %}
+        <tr>
+            <td>{{ day.day }}</td>
+            <td>
+                {% for slot in day.all %}<br>
+                {% endfor %}
+            </td>
+            <td><a href="{% url 'update_availability' day.id %}">Update</a></td>
+        </tr>
+
+
+        {% endfor %}
+        <a href="{% url 'set_availability' %}">set time table</a>
+    </table>
+{% endblock %}

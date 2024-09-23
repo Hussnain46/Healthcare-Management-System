@@ -1,0 +1,38 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Doctor Dashboard{% endblock %}
+
+{% block content %}
+<h2>Welcome to Doctor Dashboard {{ user.username }}</h2>
+<p>Here you can manage appointments and view patient history.</p>
+<a href="{% url 'set_availability' %}">Set Availability Days</a>
+<a href="{% url 'view_timetable' %}" class="btn btn-primary">View Timetable</a>
+
+<h2>Your Appointments</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Patient</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.patient }}</td>
+            <td>{{ appointment.appointment_date }}</td>
+            <td>{{ appointment.appointment_time }}</td>
+            <td>{{ appointment.status }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No appointments booked.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}

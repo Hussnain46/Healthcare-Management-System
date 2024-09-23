@@ -1,0 +1,11 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Welcome to Healthcare Management System</h1>
+<p>This is the main page of the application.</p>
+
+<p>If you are a doctor or patient, please <a href="{% url 'login' %}">login</a> to access your dashboard.</p>
+<p>If you are new, you can <a href="{% url 'doctor_register' %}">register as a Doctor</a> or <a href="{% url 'patient_register' %}">register as a Patient</a>.</p>
+{% endblock %}

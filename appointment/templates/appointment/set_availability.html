@@ -1,0 +1,20 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+    <h2>Set Your Availability</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <h3>Select Your Available Days:</h3>
+        {{ form.available_days }}
+        
+        <h3>Select Start and End Time:</h3>
+        <label for="id_start_time">Start Time:</label>
+        {{ form.start_time }}
+        
+        <label for="id_end_time">End Time:</label>
+        {{ form.end_time }}
+        
+        <button type="submit">Set Availability</button>
+    </form>
+
+{% endblock %}

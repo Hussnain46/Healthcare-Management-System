@@ -1,0 +1,11 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+  <h2>Add Available Day</h2>
+  <form method="post">
+    {% csrf_token %}
+    <h3>Select Available Days:</h3>
+    {{ form.days }}  <!-- This will render checkboxes for each day -->
+    <button type="submit">Add Availability Days</button>
+</form>
+{% endblock %}

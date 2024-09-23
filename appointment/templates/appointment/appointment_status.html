@@ -1,0 +1,10 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+  <h2>Appointment Status</h2>
+  <p>Appointment ID: {{ appointment.appointment_id }}</p>
+  <p>Doctor: {{ appointment.doctor }}</p>
+  <p>Date: {{ appointment.appointment_date }}</p>
+  <p>Time: {{ appointment.appointment_time }}</p>
+  <p>Status: {{ appointment.status }}</p>
+{% endblock %}

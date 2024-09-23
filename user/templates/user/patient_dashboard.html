@@ -1,0 +1,15 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Patient Dashboard{% endblock %}
+
+{% block content %}
+    <h2>Welcome, {{ user.first_name }} {{ user.last_name }}!</h2>
+    
+    <!-- Book Appointment Button -->
+    <a href="{% url 'book_appointment' %}" class="btn btn-primary">Book Appointment</a>
+
+   
+
+    <a href="{% url 'view_booked_appointments' %}">View Your Appointments</a>
+
+{% endblock %}

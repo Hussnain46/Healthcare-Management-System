@@ -1,0 +1,30 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <h2>Update Availability for {{ day }}</h2>
+    
+        <div>
+            <label for="day">Day:</label>
+            <input type="text" value="{{ day.day }}" readonly>
+        </div>
+    
+        <h3>Available Time Slots</h3>
+        <ul>
+            {% for time_slot in time_slots %}
+                <li>
+                    {{ time_slot }}
+                    <a href="{% url 'remove_time_slot' time_slot.id %}">Remove</a>
+                </li>
+            {% endfor %}
+        </ul>
+    
+
+    </form>
+    
+
+
+
+{% endblock %}

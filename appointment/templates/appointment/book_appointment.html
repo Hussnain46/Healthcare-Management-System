@@ -1,0 +1,104 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+<h2>Book Appointment</h2>
+<form method="post" action="{% url 'book_appointment' %}">
+    {% csrf_token %}
+
+    <div>
+        {{ form.doctor.label }}
+        {{ form.doctor }}
+    </div>
+
+    <div id="available-days">
+        <label for="id_appointment_date">Available Days</label>
+        <select id="id_appointment_date" name="day">
+            <option value="">Select a doctor first</option>
+        </select>
+    </div>
+
+    <div id="available-times">
+        <label for="id_appointment_time">Available Time Slots</label>
+        <select id="id_appointment_time" name="time">
+            <option value="">Select a day first</option>
+        </select>
+    </div>
+
+    <button type="submit">Book Appointment</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        // When doctor is selected, fetch available days
+        $('#id_doctor').change(function() {
+            var doctor_id = $(this).val();
+            if (doctor_id) {
+                $.ajax({
+                    url: '{% url "get_available_days" %}',  // Ensure this URL matches your Django view URL for getting available days
+                    data: {
+                        'doctor_id': doctor_id
+                    },
+                    success: function(data) {
+                        $('#id_appointment_date').empty();
+                        $('#id_appointment_date').append('<option value="">Select a day</option>');
+                        data.forEach(function(day) {
+                            $('#id_appointment_date').append('<option value="' + day.id + '">' + day.day + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#id_appointment_date').empty();
+                $('#id_appointment_date').append('<option value="">Select a doctor first</option>');
+            }
+        });
+
+        // When a day is selected, fetch available time slots
+        $('#id_appointment_date').change(function() {
+            var day_id = $(this).val();
+            if (day_id) {
+                $.ajax({
+                    url: '{% url "get_available_time_slots" %}',  // Ensure this URL matches your Django view URL for getting time slots
+                    data: {
+                        'day_id': day_id,
+                        'doctor_id': $('#id_doctor').val()  // Include doctor_id to ensure proper filtering
+                    },
+                    success: function(data) {
+                        $('#id_appointment_time').empty();
+                        $('#id_appointment_time').append('<option value="">Select a time slot</option>');
+                        data.forEach(function(slot) {
+                            $('#id_appointment_time').append('<option value="' + slot.id + '">' + slot.time + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#id_appointment_time').empty();
+                $('#id_appointment_time').append('<option value="">Select a day first</option>');
+            }
+        });
+
+        // AJAX form submission
+        // $('form').on('submit', function(event) {
+        //     event.preventDefault();  // Prevent default form submission
+
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: $(this).attr('action'),  // Use the form's action URL
+        //         data: $(this).serialize(),  // Serialize form data
+        //         success: function(response) {
+        //             if (response.success) {
+        //                 alert("Appointment booked successfully!");
+        //                 window.location.href = response.redirect_url;  // Redirect to the doctor's dashboard
+        //             } else {
+        //                 alert("There was an error: " + JSON.stringify(response.errors));
+        //             }
+        //         },
+        //         error: function(xhr) {
+        //             alert("There was an error: " + xhr.responseText);  // Handle any errors
+        //         }
+        //     });
+        // });
+    });
+</script>
+
+{% endblock %}
