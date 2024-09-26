@@ -6,15 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Healthcare Management System{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="{% url 'main_page' %}">Home</a></li>
                 {% if user.is_authenticated %}
-                    <!-- Show logout button only if user is logged in -->
+                    {% if user.patient %}
+                    <li><a href="{% url 'patient_dashboard' %}">Dashboard</a></li>
+                    <li><a href="{% url 'patient_profile' %}">Profile</a></li>
+                    {% elif user.doctor %}
+                    <li><a href="{% url 'doctor_dashboard' %}">Dashboard</a></li>
+                    <li><a href="{% url 'doctor_profile' %}">Profile</a></li>
+                    {% endif %}
+                    
                     <li>
                         <form method="post" action="{% url 'logout' %}" style="display: inline;">
                             {% csrf_token %}
@@ -24,11 +31,12 @@
                         </form>
                     </li>
                 {% else %}
-                    <!-- Show login link if user is not authenticated -->
+                    <li><a href="{% url 'main_page' %}">Home</a></li>
                     <li><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
             </ul>
         </nav>
+        
     </header>
 
     <div class="container">
@@ -36,8 +44,24 @@
         {% endblock %}
     </div>
 
-    <!-- <footer>
-        <p>&copy; 2024 Healthcare Management System</p>
-    </footer> -->
+
 </body>
+
+<!-- <footer>
+    <p>&copy; 2024 Healthcare Management System</p>
+</footer>  -->
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

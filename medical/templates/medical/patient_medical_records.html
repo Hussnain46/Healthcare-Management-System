@@ -1,0 +1,33 @@
+{% extends 'user/base.html' %}
+
+{% block title %}My Medical Records{% endblock %}
+
+<h2>Your Medical Records</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Doctor</th>
+            <th>Prescription</th>
+            <th>Status</th>
+            <th>Record Date</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in medical_records %}
+        <tr>
+            <td>{{ record.doctor }}</td>
+            <td>{{ record.prescription }}</td>
+            <td>{{ record.status }}</td>
+            <td>{{ record.record_date }}</td>
+            <td>{{ record.notes }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No medical records found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'user/base.html' %}
+
+{% block title %}view records{% endblock %}
+
+{% block content %}
+
+<h2>Your Medical Records</h2>
+
+<ul>
+    {% for record in medical_records %}
+        <li>
+            <strong>Patient:</strong> {{ record.patient.username }}<br>
+            <strong>Date:</strong> {{ record.record_date }}<br>
+            <strong>Status:</strong> {{ record.status }}<br>
+            <strong>Prescription:</strong> {{ record.prescription }}<br>
+            <strong>Notes:</strong> {{ record.notes }}
+        </li>
+        <hr>
+    {% empty %}
+        <p>No medical records available.</p>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -5,11 +5,19 @@
 {% block content %}
     <h2>Welcome, {{ user.first_name }} {{ user.last_name }}!</h2>
     
-    <!-- Book Appointment Button -->
-    <a href="{% url 'book_appointment' %}" class="btn btn-primary">Book Appointment</a>
+    
+    <button><a href="{% url 'book_appointment' %}">Book Appointment</a></button><br>
 
    
 
-    <a href="{% url 'view_booked_appointments' %}">View Your Appointments</a>
+    <button><a href="{% url 'view_booked_appointments' %}">View Your Appointments</a></button><br>
+
+    <a href="{% url 'patient_prescriptions' %}" class="btn btn-secondary">View Your Prescriptions</a>
+
+    <br><a href="{% url 'patient_medical_record_list' %}">
+        <button type="button" class="btn btn-secondary">View Your Medical Records</button>
+    </a>
+
+
 
 {% endblock %}

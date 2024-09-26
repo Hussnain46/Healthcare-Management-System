@@ -23,6 +23,8 @@
             <option value="">Select a day first</option>
         </select>
     </div>
+    {{ form.appointment_date }}
+    {{ form.appointment_time }}
 
     <button type="submit">Book Appointment</button>
 </form>
@@ -76,28 +78,6 @@
                 $('#id_appointment_time').append('<option value="">Select a day first</option>');
             }
         });
-
-        // AJAX form submission
-        // $('form').on('submit', function(event) {
-        //     event.preventDefault();  // Prevent default form submission
-
-        //     $.ajax({
-        //         type: 'POST',
-        //         url: $(this).attr('action'),  // Use the form's action URL
-        //         data: $(this).serialize(),  // Serialize form data
-        //         success: function(response) {
-        //             if (response.success) {
-        //                 alert("Appointment booked successfully!");
-        //                 window.location.href = response.redirect_url;  // Redirect to the doctor's dashboard
-        //             } else {
-        //                 alert("There was an error: " + JSON.stringify(response.errors));
-        //             }
-        //         },
-        //         error: function(xhr) {
-        //             alert("There was an error: " + xhr.responseText);  // Handle any errors
-        //         }
-        //     });
-        // });
     });
 </script>
 

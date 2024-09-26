@@ -1,0 +1,23 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+<h2>{{ user.get_full_name }}'s Profile</h2>
+
+{% if user.profile_pic %}
+    <img src="{{ user.profile_pic.url }}" alt="Profile Picture" style="max-width: 150px; height: auto;">
+    <p>{{ user.profile_pic.url }}</p>
+{% else %}
+    <p>No profile picture available.</p>
+{% endif %}
+
+<p><strong>Email:</strong> {{ user.email }}</p>
+<p><strong>Contact Number:</strong> {{ user.patient.contact_number }}</p>
+<p><strong>Address:</strong> {{ user.patient.address }}</p>
+<p><strong>Date of Birth:</strong> {{ user.patient.date_of_birth }}</p>
+<p><strong>Blood Group:</strong> {{ user.patient.blood_group }}</p>
+<p><strong>Emergency Contact:</strong> {{ user.patient.emergency_contact }}</p>
+
+<button><a href="{% url 'patient_profile_update' %}">Update Profile</a></button>
+
+<button><a href="{% url 'patient_dashboard' %}">Back to Dashboard</a></button>
+{% endblock %}

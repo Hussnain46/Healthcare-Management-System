@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import (
+
+from appointment.views import (
     AppointmentStatusView,
     BookAppointmentView,
     DoctorAvailabilityView,
@@ -8,7 +9,11 @@ from .views import (
     remove_time_slot,
     GetAvailableDays,
     GetAvailableTimeSlots, 
-    ConfirmAppointmentView, ViewBookedAppointmentsView, 
+    ConfirmAppointmentView, 
+    ViewBookedAppointmentsView, 
+    AppointmentRequestListView,
+    ConfirmedAppointmentsView,
+    
 )
 
 urlpatterns = [
@@ -22,6 +27,10 @@ urlpatterns = [
     path('ajax/get_available_time_slots/', GetAvailableTimeSlots.as_view(), name='get_available_time_slots'),
     path('confirm_appointment/<int:appointment_id>/', ConfirmAppointmentView.as_view(), name='confirm_appointment'),
     path('view/', ViewBookedAppointmentsView.as_view(), name='view_booked_appointments'),
+    path('view_requests/', AppointmentRequestListView.as_view(), name='view_appointment_requests'),
+    path('confirmed_appointments/', ConfirmedAppointmentsView.as_view(), name='confirmed_appointments'),
+
+
 
 
 

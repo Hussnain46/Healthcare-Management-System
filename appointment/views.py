@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from django.contrib.auth import logout
 from django.views.generic import ListView, TemplateView, FormView, UpdateView, View
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -6,7 +7,13 @@ from django.http import JsonResponse
 from django.utils.timezone import datetime, timedelta
 from datetime import date
 from .models import Appointment, AvailableDay, TimeSlot
+from medical.models import MedicalRecord
 from .forms import AppointmentForm, AvailabilityForm, UpdateAvailabilityForm
+from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
+
+
+
 
 
 
@@ -33,26 +40,35 @@ class DoctorAvailabilityView(LoginRequiredMixin, FormView):
         doctor = self.request.user.doctor
 
         for day in available_days:
-            available_days = AvailableDay.objects.filter(doctor=doctor, day=day)
+            # Get or create AvailableDay for the selected day
+            available_day, created = AvailableDay.objects.get_or_create(doctor=doctor, day=day)
 
-            if available_days.exists():
-                available_day = available_days.first()
-                available_days.exclude(id=available_day.id).delete()
-            else:
-                available_day = AvailableDay.objects.create(doctor=doctor, day=day)
-
+            # Clear existing TimeSlots for the available_day
+            TimeSlot.objects.filter(doctor=doctor, day=available_day).delete()
+            
+            # Create new TimeSlots
             current_time = start_time
             while current_time < end_time:
-                if not TimeSlot.objects.filter(doctor=doctor, day=available_day, time=current_time).exists():
-                    TimeSlot.objects.create(doctor=doctor, day=available_day, time=current_time)
+                TimeSlot.objects.create(doctor=doctor, day=available_day, time=current_time)
                 current_time = (datetime.combine(date.today(), current_time) + timedelta(minutes=30)).time()
 
         return super().form_valid(form)
 
 
+
 class BookAppointmentView(LoginRequiredMixin, FormView):
     template_name = 'appointment/book_appointment.html'
     form_class = AppointmentForm
+
+    def dispatch(self, request, *args, **kwargs):
+        # Check if the logged-in user is a Patient
+        if not hasattr(request.user, 'patient'):
+            # Logout the user and redirect them to the login page if they are not a Patient
+            logout(request)
+            return redirect(reverse_lazy('login'))
+
+        return super().dispatch(request, *args, **kwargs)
+
 
     def form_valid(self, form):
         doctor = form.cleaned_data['doctor']
@@ -64,6 +80,7 @@ class BookAppointmentView(LoginRequiredMixin, FormView):
             time_slot=time
         )
         return redirect('view_booked_appointments')
+    
 
 
 class DoctorAppointmentsView(ListView):
@@ -80,24 +97,75 @@ class ViewBookedAppointmentsView(LoginRequiredMixin, ListView):
     context_object_name = 'appointments'
 
     def get_queryset(self):
-        return Appointment.objects.filter(patient=self.request.user.patient)
+        return Appointment.objects.filter(patient=self.request.user.patient).order_by('-appointment_date')
 
-
-class ViewDoctorAppointmentsView(ListView):
+    
+class AppointmentRequestListView(LoginRequiredMixin, ListView):
+    template_name = 'appointment/appointment_requests.html'
     model = Appointment
-    template_name = 'doctor/view_appointments.html'
     context_object_name = 'appointments'
 
+
     def get_queryset(self):
+        # Show only the pending appointment requests for the logged-in doctor
         return Appointment.objects.filter(doctor=self.request.user.doctor, status='Pending')
 
 
+
+from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect
+
 class ConfirmAppointmentView(View):
     def post(self, request, appointment_id):
-        appointment = Appointment.objects.get(id=appointment_id)
-        appointment.status = 'Confirmed'
-        appointment.save()
-        return redirect('view_doctor_appointments')
+        appointment = get_object_or_404(Appointment, appointment_id=appointment_id)
+
+        # Check if the logged-in user is the doctor for this appointment
+        if appointment.doctor == request.user.doctor:
+            appointment.status = 'Confirmed'
+            appointment.save()
+            messages.success(request, 'Appointment confirmed successfully!')
+
+            # Fetch the latest active medical record for the patient
+            medical_record = MedicalRecord.objects.filter(patient=appointment.patient, status='Active').last()
+            if medical_record:
+                messages.info(request, f'Latest Medical Record: {medical_record.notes}')  # Display record notes if available
+            else:
+                messages.info(request, 'No active medical record found for this patient.')
+
+        else:
+            messages.error(request, 'You do not have permission to confirm this appointment.')
+
+        return redirect('view_appointment_requests')  # Redirect to the view appointment requests page
+
+
+
+
+from django.views.generic import ListView
+from django.shortcuts import redirect
+from django.core.exceptions import ObjectDoesNotExist
+from .models import Appointment
+
+class ConfirmedAppointmentsView(ListView):
+    model = Appointment
+    template_name = 'appointment/confirmed_appointments.html'  # Your template
+    context_object_name = 'confirmed_appointments'
+
+    def get_queryset(self):
+        # Ensure the user has a doctor profile and return confirmed appointments with prescriptions
+        try:
+            return Appointment.objects.filter(doctor=self.request.user.doctor, status='Confirmed').prefetch_related('prescription')
+        except ObjectDoesNotExist:
+            # Redirect to login page if the user doesn't have a doctor profile
+            return redirect('login')
+
+    def get_context_data(self, **kwargs):
+        # Get the default context
+        context = super().get_context_data(**kwargs)
+        # Add any additional context variables if needed
+        return context
+
+    
+
 
 
 class GetAvailableDays(View):

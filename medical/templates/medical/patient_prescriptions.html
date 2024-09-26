@@ -1,0 +1,39 @@
+{% extends 'user/base.html' %}
+
+{% block title %}patient Prescription{% endblock %}
+
+{% block content %}
+<h2>Your Prescriptions</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Medicine Name</th>
+            <th>Dosage</th>
+            <th>Duration</th>
+            <th>Doctor name</th>
+            <th>time</th>
+            <th>Day</th>
+            <th>Instructions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for prescription in prescriptions %}
+            <tr>
+                <td>{{ prescription.medicine_name }}</td>
+                <td>{{ prescription.dosage }}</td>
+                <td>{{ prescription.appointment.time_slot.day.day }}</td>
+                <td>{{ prescription.appointment.doctor }}</td>
+                <td>{{ prescription.appointment.time_slot.time }}</td>
+                <td>{{ prescription.duration }}</td>
+                <td>{{ prescription.instructions }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4" class="no-data">No prescriptions found.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
