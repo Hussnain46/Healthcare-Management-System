@@ -1,0 +1,33 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Requests Appointment{% endblock %}
+
+{% block content %}
+
+<h2>Appointment Requests</h2>
+
+<table class="table">
+    <tbody>
+        {% for appointment in object_list %}
+        <div>
+            <p>Patient: {{ appointment.patient }}</p>
+            <p>Day: {{ appointment.time_slot.day.day }}</p>
+            <p>Time: {{ appointment.time_slot.time }}</p>
+            <form action="{% url 'confirm_appointment' appointment.appointment_id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Confirm Appointment</button>
+            </form>
+        </div>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center">No appointment requests</td>
+        </tr>
+        
+        {% endfor %}
+        <tr>
+            <br><button><a href="{% url 'confirmed_appointments' %}">Go to Confirmed Appointments</a></button>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

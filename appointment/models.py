@@ -9,9 +9,11 @@ class Appointment(models.Model):
     appointment_time = models.TimeField(null=True) 
     time_slot = models.ForeignKey('TimeSlot', null=True, blank=True, on_delete=models.SET_NULL)  # Link to TimeSlot
     status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Confirmed', 'Confirmed'), ('Rescheduled', 'Rescheduled')], default='Pending')
+    confirmed_by = models.ForeignKey(Doctor, null=True, blank=True, related_name='confirmed_appointments', on_delete=models.SET_NULL)
+    
 
     def __str__(self):
-        return f"Appointment {self.appointment_id} - {self.status}"
+        return f" {self.patient}"
 
 
 

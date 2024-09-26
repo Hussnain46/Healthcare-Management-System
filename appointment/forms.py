@@ -4,19 +4,6 @@ from .models import Appointment, TimeSlot, AvailableDay
 
 
 
-class AppointmentForm(forms.ModelForm):
-    class Meta:
-        model = Appointment
-        fields = ['doctor', 'appointment_date', 'appointment_time']
-
-    def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
-        super(AppointmentForm, self).__init__(*args, **kwargs)
-        if user and hasattr(user, 'patient'):
-            self.fields['doctor'].queryset = Doctor.objects.all()
-
-
-
 
 class AvailabilityForm(forms.Form):
     available_days = forms.MultipleChoiceField(
@@ -59,5 +46,7 @@ class AppointmentForm(forms.Form):
     doctor = forms.ModelChoiceField(queryset=Doctor.objects.all(), required=True)
     day = forms.ModelChoiceField(queryset=AvailableDay.objects.all())
     time = forms.ModelChoiceField(queryset=TimeSlot.objects.all())
+    
+
 
 

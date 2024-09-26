@@ -1,7 +1,9 @@
+<!-- view_booked_appointments.html -->
 {% extends 'user/base.html' %}
 
 {% block content %}
 <h2>Your Booked Appointments</h2>
+
 <table>
     <tr>
         <th>Doctor</th>
@@ -11,9 +13,9 @@
     </tr>
     {% for appointment in appointments %}
     <tr>
-        <td>{{ appointment.doctor }}</td>
-        <td>{{ appointment.appointment_date }}</td>
-        <td>{{ appointment.appointment_time }}</td>
+        <td>Dr. {{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</td>
+        <td>{{ appointment.time_slot.day.day }}</td>
+        <td>{{ appointment.time_slot.time }}</td>
         <td>{{ appointment.status }}</td>
     </tr>
     {% empty %}
@@ -21,5 +23,7 @@
         <td colspan="4">No appointments booked yet.</td>
     </tr>
     {% endfor %}
+    
 </table>
+<a href="{% url 'patient_prescriptions' %}" class="btn btn-secondary">View Your Prescriptions</a>
 {% endblock %}

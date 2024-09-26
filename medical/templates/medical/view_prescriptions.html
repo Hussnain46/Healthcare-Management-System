@@ -1,0 +1,12 @@
+<!-- medical/templates/medical/view_prescriptions.html -->
+{% extends 'user/base.html' %}
+
+{% block content %}
+<div class="prescription-container">
+    <h2>Prescription Details</h2>
+    <p><strong>Medicine Name:</strong> {{ prescription.medicine_name }}</p>
+    <p><strong>Dosage:</strong> {{ prescription.dosage }}</p>
+    <p><strong>Duration:</strong> {{ prescription.duration }}</p>
+    <p><strong>Instructions:</strong> {{ prescription.instructions }}</p>
+</div>
+{% endblock %}

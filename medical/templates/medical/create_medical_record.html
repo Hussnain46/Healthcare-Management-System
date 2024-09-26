@@ -1,0 +1,12 @@
+{% extends 'user/base.html' %}
+
+{% block title %}create record{% endblock %}
+
+{% block content %}
+<h2>Create Medical Record for {{ object.patient.username }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Record</button>
+</form>
+{% endblock %}

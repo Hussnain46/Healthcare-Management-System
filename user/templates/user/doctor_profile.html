@@ -1,0 +1,15 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+<h2>{{ user.get_full_name }}'s Profile</h2>
+
+<p><strong>Email:</strong> {{ user.email }}</p>
+<p><strong>Specialization:</strong> {{ user.doctor.specialization }}</p>
+<p><strong>License Number:</strong> {{ user.doctor.license_number }}</p>
+<p><strong>Qualification:</strong> {{ user.doctor.qualification }}</p>
+<p><strong>Experience:</strong> {{ user.doctor.experience }} years</p>
+<p><strong>Consultation Fee:</strong> ${{ user.doctor.consultation_fee }}</p>
+
+<button><a href="{% url 'doctor_profile_update' %}">Update Profile</a></button>
+<button><a href="{% url 'doctor_dashboard' %}">Back to Dashboard</a></button>
+{% endblock %}

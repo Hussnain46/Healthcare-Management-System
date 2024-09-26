@@ -1,0 +1,18 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Patient list{% endblock %}
+
+{% block content %}
+<h2>Patient List</h2>
+<ul>
+    {% for patient in patients %}
+        <li>
+            {{ patient.first_name }}  {{ patient.last_name }} -
+            <a href="{% url 'create_medical_record' patient.id %}">Create Medical Record</a>
+            <a href="{% url 'medical_record_list' %}">
+                <button type="button" class="btn btn-secondary">View Medical Records</button>
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
