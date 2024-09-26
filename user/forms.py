@@ -5,7 +5,11 @@ from .models import Patient, Doctor, User
 class DoctorRegistrationForm(UserCreationForm):
     class Meta:
         model = Doctor
-        fields = ['username', 'first_name', 'last_name', 'email', 'CNIC_no', 'contact_number', 'address', 'gender', 'specialization', 'license_number', 'qualification', 'experience', 'consultation_fee', 'profile_pic']
+        fields = ['username', 'first_name', 'last_name', 
+                  'email', 'CNIC_no', 'contact_number', 
+                  'address', 'gender', 'specialization', 
+                  'license_number', 'qualification', 
+                  'experience', 'consultation_fee', 'profile_pic']
 
     def __init__(self, *args, **kwargs):
         super(DoctorRegistrationForm, self).__init__(*args, **kwargs)
@@ -16,13 +20,27 @@ class DoctorRegistrationForm(UserCreationForm):
 class DoctorUpdateForm(forms.ModelForm):
     class Meta:
         model = Doctor
-        fields = ['specialization', 'license_number', 'qualification', 'experience', 'consultation_fee']
+        fields = ['specialization', 'license_number', 
+                  'qualification', 'experience', 'consultation_fee']
 
 
 class PatientRegistrationForm(UserCreationForm):
     class Meta:
         model = Patient
-        fields = ['username', 'first_name', 'last_name', 'email', 'CNIC_no', 'contact_number', 'address', 'gender', 'date_of_birth', 'blood_group', 'marital_status', 'emergency_contact', 'profile_pic']
+        fields = ['username', 
+                  'first_name', 
+                  'last_name', 
+                  'email', 
+                  'CNIC_no', 
+                  'contact_number', 
+                  'address', 
+                  'gender', 
+                  'date_of_birth', 
+                  'blood_group', 
+                  'marital_status', 
+                  'emergency_contact', 
+                  'profile_pic'
+                  ]
     
     def __init__(self, *args, **kwargs):
         super(PatientRegistrationForm, self).__init__(*args, **kwargs)
@@ -35,4 +53,5 @@ class PatientRegistrationForm(UserCreationForm):
 class PatientUpdateForm(forms.ModelForm):
     class Meta:
         model = Patient
-        fields = ['contact_number', 'address', 'date_of_birth', 'blood_group', 'emergency_contact']
+        fields = ['contact_number', 'address', 'date_of_birth', 'blood_group', 'emergency_contact', 'profile_pic']
+

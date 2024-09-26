@@ -1,13 +1,15 @@
 {% extends 'user/base.html' %}
 
 {% block content %}
-<h2>Update Profile</h2>
+  <h2>Update Your Profile</h2>
 
-<form method="post">
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Update</button>
-</form>
+    {{ form.as_p }}  <!-- Renders all form fields including profile_pic -->
 
-<a href="{% url 'patient_profile' %}">Back to Profile</a>
+
+    <button type="submit">Update Profile</button>
+  </form>
+
+  <button><a href="{% url 'patient_dashboard' %}">Back to Dashboard</a></button>
 {% endblock %}

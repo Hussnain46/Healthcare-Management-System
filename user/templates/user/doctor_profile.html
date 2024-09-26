@@ -2,6 +2,11 @@
 
 {% block content %}
 <h2>{{ user.get_full_name }}'s Profile</h2>
+{% if user.profile_pic %}
+    <img src="{{ user.profile_pic.url }}" alt="Profile Picture" style="max-width: 150px; height: auto;">
+{% else %}
+    <p>No profile picture available.</p>
+{% endif %}
 
 <p><strong>Email:</strong> {{ user.email }}</p>
 <p><strong>Specialization:</strong> {{ user.doctor.specialization }}</p>

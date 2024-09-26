@@ -1,11 +1,10 @@
 {% extends 'user/base.html' %}
-
+{% load static %}
 {% block content %}
 <h2>{{ user.get_full_name }}'s Profile</h2>
 
 {% if user.profile_pic %}
     <img src="{{ user.profile_pic.url }}" alt="Profile Picture" style="max-width: 150px; height: auto;">
-    <p>{{ user.profile_pic.url }}</p>
 {% else %}
     <p>No profile picture available.</p>
 {% endif %}
