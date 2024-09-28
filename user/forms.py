@@ -54,4 +54,3 @@ class PatientUpdateForm(forms.ModelForm):
     class Meta:
         model = Patient
         fields = ['contact_number', 'address', 'date_of_birth', 'blood_group', 'emergency_contact', 'profile_pic']
-
