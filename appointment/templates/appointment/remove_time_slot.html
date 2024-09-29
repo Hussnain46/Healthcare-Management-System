@@ -1,13 +1,71 @@
 {% extends 'user/base.html' %}
 
 {% block content %}
-
+<div class="remove-time-slot-container">
     <h1>Remove Time Slot</h1>
-    <p>Are you sure you want to remove the time slot for {{ time_slot.time }} on {{ time_slot.day.day }}?</p>
+    <p>Are you sure you want to remove the time slot for <strong>{{ time_slot.time }}</strong> on <strong>{{ time_slot.day.day }}</strong>?</p>
     
     <form method="POST">
         {% csrf_token %}
-        <button type="submit">Yes, Remove</button>
-        <a href="{% url 'view_timetable' %}">Cancel</a>
+        <div class="button-group">
+            <button type="submit" class="btn btn-danger">Yes, Remove</button>
+            <a href="{% url 'view_timetable' %}" class="btn btn-secondary">Cancel</a>
+        </div>
     </form>
+</div>
+
+<style>
+    .remove-time-slot-container {
+        max-width: 500px; /* Limit container width */
+        margin: 50px auto; /* Center container */
+        padding: 20px; /* Padding inside container */
+        background-color: #ffffff; /* White background */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        text-align: center; /* Center text */
+    }
+
+    h1 {
+        color: #2c3e50; /* Darker color for heading */
+        margin-bottom: 20px; /* Space below heading */
+    }
+
+    p {
+        font-size: 1.2em; /* Slightly larger font for the question */
+        margin-bottom: 30px; /* Space below paragraph */
+    }
+
+    .button-group {
+        display: flex; /* Flexbox for button alignment */
+        justify-content: center; /* Center buttons */
+        gap: 20px; /* Space between buttons */
+    }
+
+    .btn {
+        text-decoration: none; /* Remove underline */
+        color: white; /* White text */
+        padding: 10px 20px; /* Padding for buttons */
+        border-radius: 5px; /* Rounded corners for buttons */
+        transition: background-color 0.3s; /* Transition for hover effect */
+        border: none; /* Remove default border */
+        cursor: pointer; /* Pointer cursor on hover */
+    }
+
+    .btn-danger {
+        background-color: #e74c3c; /* Red for remove button */
+    }
+
+    .btn-danger:hover {
+        background-color: #c0392b; /* Darker red on hover */
+    }
+
+    .btn-secondary {
+        background-color: #3498db; /* Blue for cancel button */
+    }
+
+    .btn-secondary:hover {
+        background-color: #2980b9; /* Darker blue on hover */
+    }
+</style>
+
 {% endblock %}

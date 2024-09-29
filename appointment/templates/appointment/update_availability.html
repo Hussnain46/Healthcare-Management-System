@@ -1,30 +1,107 @@
 {% extends 'user/base.html' %}
 
 {% block content %}
-
+<div class="update-availability-container">
     <form method="POST">
         {% csrf_token %}
         <h2>Update Availability for {{ day }}</h2>
-    
-        <div>
+        
+        <div class="form-group">
             <label for="day">Day:</label>
-            <input type="text" value="{{ day.day }}" readonly>
+            <input type="text" value="{{ day.day }}" readonly class="form-control">
         </div>
-    
+
         <h3>Available Time Slots</h3>
-        <ul>
+        <ul class="time-slot-list">
             {% for time_slot in time_slots %}
-                <li>
+                <li class="time-slot-item">
                     {{ time_slot }}
-                    <a href="{% url 'remove_time_slot' time_slot.id %}">Remove</a>
+                    <a href="{% url 'remove_time_slot' time_slot.id %}" class="btn btn-remove">Remove</a>
                 </li>
+            {% empty %}
+                <li>No time slots available.</li>
             {% endfor %}
         </ul>
-    
 
+    
     </form>
-    
+</div>
+
+<style>
+    .update-availability-container {
+        max-width: 600px; /* Limit container width */
+        margin: 50px auto; /* Center container */
+        padding: 20px; /* Padding inside container */
+        background-color: #ffffff; /* White background */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    }
+
+    h2 {
+        text-align: center; /* Center heading */
+        color: #2c3e50; /* Dark text color */
+        margin-bottom: 20px; /* Space below heading */
+    }
+
+    .form-group {
+        margin-bottom: 20px; /* Space below each form group */
+    }
+
+    label {
+        display: block; /* Block display for labels */
+        margin-bottom: 5px; /* Space below labels */
+        font-weight: bold; /* Bold for labels */
+    }
+
+    input[type="text"],
+    input[type="time"] {
+        width: 100%; /* Full width inputs */
+        padding: 10px; /* Padding inside inputs */
+        border: 1px solid #ddd; /* Light border */
+        border-radius: 5px; /* Rounded corners */
+        box-sizing: border-box; /* Include padding in total width */
+    }
+
+    .time-slot-list {
+        list-style-type: none; /* Remove bullet points */
+        padding: 0; /* Remove padding */
+    }
+
+    .time-slot-item {
+        background: #f9f9f9; /* Light background for time slots */
+        padding: 10px; /* Padding inside time slot items */
+        margin-bottom: 10px; /* Space between time slot items */
+        border-radius: 5px; /* Rounded corners */
+        display: flex; /* Flexbox for alignment */
+        justify-content: space-between; /* Space between items */
+        align-items: center; /* Center vertically */
+    }
+
+    .btn {
+        text-decoration: none; /* Remove underline */
+        color: white; /* White text */
+        background-color: #3498db; /* Button color */
+        padding: 8px 12px; /* Padding for buttons */
+        border-radius: 5px; /* Rounded corners for buttons */
+        transition: background-color 0.3s; /* Transition for hover effect */
+    }
+
+    .btn:hover {
+        background-color: #2980b9; /* Darker blue on hover */
+    }
+
+    .btn-remove {
+        background-color: #e74c3c; /* Red for remove button */
+    }
+
+    .btn-remove:hover {
+        background-color: #c0392b; /* Darker red on hover */
+    }
 
 
+    h4 {
+        margin-bottom: 10px; /* Space below add new time slot heading */
+    }
+</style>
 
 {% endblock %}

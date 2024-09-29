@@ -12,7 +12,7 @@ class Prescription(models.Model):
     instructions = models.TextField()
 
     def __str__(self):
-        return f"Prescription {self.id} for Appointment {self.appointment.appointment_id}"
+        return f"Prescription {self.id} for Appointment {self.appointment.patient}"
 
 
 class MedicalRecord(models.Model):

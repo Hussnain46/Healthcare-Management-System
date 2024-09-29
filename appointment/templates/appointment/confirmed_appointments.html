@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="appointments-container">
-    <h2>List Appointments</h2>
+    <h2>List of Appointments</h2>
     <div class="table-wrapper">
         <table class="styled-table">
             <thead>
@@ -21,7 +21,6 @@
                     <td>{{ appointment.time_slot.day.day }}</td>
                     <td>{{ appointment.time_slot.time }}</td>
                     <td>{{ appointment.status }}</td>
-
                     <td>
                         {% if appointment.prescription %}
                             <a href="{% url 'view_specific_prescription' appointment.appointment_id %}" class="btn btn-secondary">View Prescription</a>
@@ -39,5 +38,80 @@
         </table>
     </div>
 </div>
+
+<style>
+    .appointments-container {
+        max-width: 900px; /* Set a maximum width for the container */
+        margin: 50px auto; /* Center the container */
+        padding: 20px; /* Padding inside the container */
+        background-color: #ffffff; /* White background for the container */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    }
+
+    h2 {
+        color: #2c3e50; /* Darker color for heading */
+        margin-bottom: 20px; /* Space below heading */
+        text-align: center; /* Center the heading */
+    }
+
+    .table-wrapper {
+        overflow-x: auto; /* Allow horizontal scrolling if the table is too wide */
+    }
+
+    .styled-table {
+        width: 100%; /* Full width for the table */
+        border-collapse: collapse; /* Collapse borders */
+        margin-bottom: 20px; /* Space below the table */
+    }
+
+    th, td {
+        padding: 12px; /* Padding inside table cells */
+        text-align: left; /* Align text to the left */
+        border-bottom: 1px solid #ddd; /* Light border below cells */
+    }
+
+    th {
+        background-color: #f4f4f4; /* Light grey background for table headers */
+        color: #333; /* Dark text for headers */
+    }
+
+    tr:hover {
+        background-color: #f1f1f1; /* Light background on row hover */
+    }
+
+    .btn {
+        text-decoration: none; /* Remove underline */
+        color: white; /* White text */
+        padding: 5px 10px; /* Padding for the button */
+        border-radius: 5px; /* Rounded corners */
+        transition: background-color 0.3s; /* Transition for hover effect */
+        border: none; /* Remove default border */
+        cursor: pointer; /* Pointer cursor on hover */
+        font-size: 14px; /* Font size for buttons */
+    }
+
+    .btn-primary {
+        background-color: #3498db; /* Blue for create prescription button */
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9; /* Darker blue on hover */
+    }
+
+    .btn-secondary {
+        background-color: #e74c3c; /* Red for view prescription button */
+    }
+
+    .btn-secondary:hover {
+        background-color: #c0392b; /* Darker red on hover */
+    }
+
+    .no-data {
+        text-align: center; /* Center no data message */
+        color: #888; /* Gray color */
+        font-style: italic; /* Italic style */
+    }
+</style>
 
 {% endblock %}

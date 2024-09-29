@@ -73,13 +73,17 @@ class MedicalRecordCreateView(CreateView):
     template_name = 'medical/create_medical_record.html'
     success_url = reverse_lazy('patient_list')
 
+
     def form_valid(self, form):
         form.instance.doctor = self.request.user.doctor
         patient = get_object_or_404(Patient, pk=self.kwargs['pk'])
         form.instance.patient = patient
         return super().form_valid(form)
 
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['patient'] = get_object_or_404(Patient, pk=self.kwargs['pk'])
+        return context
 
 class MedicalRecordListView(ListView):
     model = MedicalRecord

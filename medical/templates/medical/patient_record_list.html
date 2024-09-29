@@ -1,22 +1,74 @@
 {% extends 'user/base.html' %}
 
-{% block title %}patient Record{% endblock %}
+{% block title %}Patient Record{% endblock %}
 
 {% block content %}
-<h2>Your Medical Records</h2>
+<style>
+    /* Container styling for the medical records */
+    .medical-records-container {
+        display: flex;
+        flex-direction: column; /* Align items vertically */
+        justify-content: center; /* Center content vertically */
+        align-items: center; /* Center content horizontally */
+        min-height: 100vh; /* Full viewport height */
+        background-color: #f0f4f8; /* Light background for contrast */
+        padding: 20px; /* Padding for the container */
+        box-sizing: border-box; /* Include padding in total height/width */
+    }
 
-<ul>
-    {% for record in medical_records %}
-        <li>
-            <strong>Doctor:</strong> {{ record.doctor.username }}<br>
-            <strong>Date:</strong> {{ record.record_date }}<br>
-            <strong>Status:</strong> {{ record.status }}<br>
-            <strong>Prescription:</strong> {{ record.prescription }}<br>
-            <strong>Notes:</strong> {{ record.notes }}
-        </li>
-        <hr>
-    {% empty %}
-        <p>No medical records available.</p>
-    {% endfor %}
-</ul>
+    h2 {
+        color: #2c3e50; /* Darker color for the heading */
+        margin-bottom: 20px;
+        text-align: center; /* Center the heading */
+    }
+
+    /* Styling the list of medical records */
+    .medical-records-container ul {
+        list-style-type: none; /* Remove bullet points */
+        padding: 0; /* Remove padding */
+        max-width: 800px; /* Maximum width */
+        width: 100%; /* Full width */
+    }
+
+    .medical-records-container li {
+        background: white; /* White background for each record */
+        border: 1px solid #ddd; /* Light border */
+        border-radius: 8px; /* Rounded corners */
+        padding: 15px; /* Padding inside list items */
+        margin-bottom: 15px; /* Space between records */
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    }
+
+    hr {
+        margin: 10px 0; /* Margin for horizontal rule */
+        border: 0; /* Remove default border */
+        border-top: 1px solid #ddd; /* Custom border for horizontal rule */
+    }
+
+    .no-records {
+        text-align: center; /* Center the no records message */
+        font-style: italic; /* Italic style for no records message */
+        color: #888; /* Gray color */
+    }
+</style>
+
+<div class="medical-records-container">
+    <h2>Your Medical Records</h2>
+
+    <ul>
+        {% for record in medical_records %}
+            <li>
+                <strong>Doctor:</strong> {{ record.doctor.username }}<br>
+                <strong>Date:</strong> {{ record.record_date }}<br>
+                <strong>Status:</strong> {{ record.status }}<br>
+                <strong>Prescription:</strong> {{ record.prescription }}<br>
+                <strong>Notes:</strong> {{ record.notes }}
+            </li>
+            <hr>
+        {% empty %}
+            <p class="no-records">No medical records available.</p>
+        {% endfor %}
+    </ul>
+</div>
+
 {% endblock %}

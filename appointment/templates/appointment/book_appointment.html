@@ -1,33 +1,96 @@
 {% extends 'user/base.html' %}
 
 {% block content %}
-<h2>Book Appointment</h2>
-<form method="post" action="{% url 'book_appointment' %}">
-    {% csrf_token %}
+<style>
+    .appointment-container {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        min-height: 100vh; /* Full viewport height */
+        background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%); /* Background gradient */
+        padding: 20px; /* Padding for the container */
+        box-sizing: border-box; /* Include padding in the total height/width */
+    }
 
-    <div>
-        {{ form.doctor.label }}
-        {{ form.doctor }}
+    .form-card {
+        max-width: 600px; /* Max width for the form */
+        width: 100%; /* Full width */
+        padding: 30px; /* Padding for the form card */
+        background-color: #ffffff; /* White background for the form */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    }
+
+    h2 {
+        color: #2c3e50; /* Darker color for the heading */
+        margin-bottom: 20px;
+        text-align: center; /* Center the heading */
+    }
+
+    .form-group {
+        margin-bottom: 20px; /* Space between form fields */
+    }
+
+    label {
+        display: block; /* Block display for labels */
+        margin-bottom: 8px; /* Space between label and input */
+        color: #34495e; /* Label color */
+    }
+
+    select, button {
+        width: 100%; /* Full width for selects and buttons */
+        padding: 12px; /* Padding for inputs */
+        border: 1px solid #ccc; /* Border for inputs */
+        border-radius: 5px; /* Rounded corners */
+        font-size: 16px; /* Font size */
+    }
+
+    button {
+        background-color: #28a745; /* Green background */
+        color: white; /* White text */
+        border: none; /* Remove border */
+        cursor: pointer; /* Pointer cursor */
+        transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+    }
+
+    button:hover {
+        background-color: #218838; /* Darker green on hover */
+        transform: translateY(-2px); /* Slight lift effect */
+    }
+</style>
+
+<div class="appointment-container">
+    <div class="form-card">
+        <h2>Book Appointment</h2>
+        <form method="post" action="{% url 'book_appointment' %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+                {{ form.doctor.label }}
+                {{ form.doctor }}
+            </div>
+
+            <div class="form-group" id="available-days">
+                <label for="id_appointment_date">Available Days</label>
+                <select id="id_appointment_date" name="day">
+                    <option value="">Select a doctor first</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="available-times">
+                <label for="id_appointment_time">Available Time Slots</label>
+                <select id="id_appointment_time" name="time">
+                    <option value="">Select a day first</option>
+                </select>
+            </div>
+
+            {{ form.appointment_date}}
+            {{ form.appointment_time}}
+
+            <button type="submit">Book Appointment</button>
+        </form>
     </div>
-
-    <div id="available-days">
-        <label for="id_appointment_date">Available Days</label>
-        <select id="id_appointment_date" name="day">
-            <option value="">Select a doctor first</option>
-        </select>
-    </div>
-
-    <div id="available-times">
-        <label for="id_appointment_time">Available Time Slots</label>
-        <select id="id_appointment_time" name="time">
-            <option value="">Select a day first</option>
-        </select>
-    </div>
-    {{ form.appointment_date }}
-    {{ form.appointment_time }}
-
-    <button type="submit">Book Appointment</button>
-</form>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">

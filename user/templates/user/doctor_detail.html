@@ -1,0 +1,102 @@
+{% extends 'user/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="doctor-detail-container">
+    <h2 class="doctor-name">Dr. {{ doctor.get_full_name }}</h2>
+    
+    <div class="doctor-profile">
+        {% if doctor.profile_pic %}
+            <img src="{{ doctor.profile_pic.url }}" alt="Profile Picture" class="doctor-img">
+        {% else %}
+            <p>No picture available for this Doctor</p>
+        {% endif %}
+    </div>
+
+    <div class="doctor-info">
+        <p><strong>Email:</strong> {{ doctor.email }}</p>
+        <p><strong>Contact Number:</strong> {{ doctor.contact_number }}</p>
+        <p><strong>Address:</strong> {{ doctor.address }}</p>
+        <p><strong>Specialization:</strong> {{ doctor.specialization }}</p>
+        <p><strong>Qualification:</strong> {{ doctor.qualification }}</p>
+        <p><strong>Experience:</strong> {{ doctor.experience }} years</p>
+        <p><strong>Consultation Fee:</strong> Rs.{{ doctor.consultation_fee }}</p>
+    </div>
+    <div class="doctor-actions">
+        <a href="{% url 'book_appointment' %}" class="btn btn-primary">Book Appointment</a>
+        <a href="{% url 'patient_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+
+<!-- Styling for the doctor detail page -->
+<style>
+    .doctor-detail-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .doctor-name {
+        font-size: 26px;
+        margin-bottom: 20px;
+        color: #2c662d; /* Dark green for the name */
+        text-align: center;
+    }
+
+    .doctor-profile {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .doctor-img {
+        max-width: 150px;
+        max-height: 150px;
+        border-radius: 50%;
+        border: 2px solid #4CAF50; /* Border color for profile picture */
+    }
+
+    .doctor-info {
+        margin-bottom: 20px;
+        font-size: 18px;
+        line-height: 1.5;
+        color: #333;
+    }
+
+    .doctor-info strong {
+        color: #4CAF50; /* Strong text color */
+    }
+
+    .doctor-actions {
+        text-align: center;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #4CAF50;
+    }
+
+    .btn-secondary {
+        background-color: #8cc540;
+    }
+
+    .btn-primary:hover {
+        background-color: #388e3c;
+    }
+
+    .btn-secondary:hover {
+        background-color: #77a935;
+    }
+</style>
+{% endblock %}

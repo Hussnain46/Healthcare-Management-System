@@ -18,6 +18,7 @@ class MedicalRecordForm(forms.ModelForm):
     class Meta:
         model = MedicalRecord
         fields = ['notes', 'status', 'record_date']
+
         widgets = {
             'record_date': forms.DateInput(attrs={'type': 'date'}),
         }

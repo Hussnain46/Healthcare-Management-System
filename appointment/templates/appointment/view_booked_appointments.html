@@ -2,28 +2,97 @@
 {% extends 'user/base.html' %}
 
 {% block content %}
-<h2>Your Booked Appointments</h2>
+<style>
+    .appointments-container {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: flex-start; /* Align to the start */
+        min-height: 100vh; /* Full viewport height */
+        background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%); /* Background gradient */
+        padding: 20px; /* Padding for the container */
+        box-sizing: border-box; /* Include padding in the total height/width */
+    }
 
-<table>
-    <tr>
-        <th>Doctor</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Status</th>
-    </tr>
-    {% for appointment in appointments %}
-    <tr>
-        <td>Dr. {{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</td>
-        <td>{{ appointment.time_slot.day.day }}</td>
-        <td>{{ appointment.time_slot.time }}</td>
-        <td>{{ appointment.status }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="4">No appointments booked yet.</td>
-    </tr>
-    {% endfor %}
-    
-</table>
-<a href="{% url 'patient_prescriptions' %}" class="btn btn-secondary">View Your Prescriptions</a>
+    .appointments-card {
+        max-width: 800px; /* Max width for the appointments card */
+        width: 100%; /* Full width */
+        padding: 30px; /* Padding for the card */
+        background-color: #ffffff; /* White background for the card */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    }
+
+    h2 {
+        color: #2c3e50; /* Darker color for the heading */
+        margin-bottom: 20px;
+        text-align: center; /* Center the heading */
+    }
+
+    table {
+        width: 100%; /* Full width for the table */
+        border-collapse: collapse; /* Collapse borders for cleaner look */
+        margin-bottom: 20px; /* Space below the table */
+    }
+
+    th, td {
+        padding: 12px; /* Padding for table cells */
+        text-align: left; /* Align text to the left */
+        border-bottom: 1px solid #ddd; /* Border for table rows */
+    }
+
+    th {
+        background-color: #4caf50; /* Green background for header */
+        color: white; /* White text for header */
+    }
+
+    tr:hover {
+        background-color: #f1f1f1; /* Light gray background on row hover */
+    }
+
+    .btn-secondary {
+        display: inline-block; /* Block display */
+        background-color: #28a745; /* Green background */
+        color: white; /* White text */
+        padding: 12px 25px; /* Padding */
+        text-decoration: none; /* Remove underline */
+        border-radius: 50px; /* Rounded corners */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+    }
+
+    .btn-secondary:hover {
+        background-color: #218838; /* Darker green on hover */
+        transform: translateY(-2px); /* Slight lift effect */
+    }
+</style>
+
+<div class="appointments-container">
+    <div class="appointments-card">
+        <h2>Your Booked Appointments</h2>
+
+        <table>
+            <tr>
+                <th>Doctor</th>
+                <th>Day</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+            {% for appointment in appointments %}
+            <tr>
+                <td>Dr. {{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</td>
+                <td>{{ appointment.time_slot.day.day }}</td>
+                <td>{{ appointment.time_slot.time }}</td>
+                <td>{{ appointment.status }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No appointments booked yet.</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <a href="{% url 'patient_prescriptions' %}" class="btn-secondary">View Your Prescriptions</a>
+    </div>
+</div>
+
 {% endblock %}

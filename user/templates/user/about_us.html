@@ -1,0 +1,58 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+<div class="about-us-container mt-5">
+    <h1>About Us</h1>
+    <p>Welcome to our Healthcare Management System. Our platform is designed to provide efficient, reliable, and secure services for managing healthcare appointments, medical records, prescriptions.</p>
+
+    <h2>Our Mission</h2>
+    <p>Our mission is to enhance healthcare access by bridging the gap between patients and doctors, providing a seamless platform for scheduling appointments and managing health data.</p>
+
+    <h2>Why Choose Us?</h2>
+    <ul class="features-list">
+        <li>Efficient appointment management</li>
+        <li>Secure and easy access to medical records</li>
+        <li>Experienced doctors with diverse specializations</li>
+        <li>User-friendly interface</li>
+        <li>24/7 customer support</li>
+    </ul>
+
+    <h2>Our Team</h2>
+    <p>We are a dedicated team of developers, healthcare professionals, and customer support specialists who are committed to making healthcare more accessible and efficient for everyone.</p>
+
+</div>
+
+<style>
+    .about-us-container {
+        max-width: 800px; /* Set a maximum width */
+        margin: 0 auto; /* Center the container */
+        padding: 20px; /* Add padding */
+        background-color: #fff; /* Set a white background */
+        border-radius: 10px; /* Round the corners */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+        color: #2c3e50; /* Set text color */
+        line-height: 1.6; /* Improve text readability */
+    }
+
+    h1, h2 {
+        text-align: center; /* Center the headings */
+        color: #3498db; /* A primary color for headings */
+        margin-bottom: 20px; /* Space below headings */
+    }
+
+    p {
+        margin-bottom: 20px; /* Space below paragraphs */
+    }
+
+    .features-list {
+        list-style-type: disc; /* Display bullet points */
+        padding-left: 40px; /* Add left padding */
+        margin-bottom: 20px; /* Space below the list */
+    }
+
+    .features-list li {
+        margin-bottom: 10px; /* Space between list items */
+    }
+</style>
+
+{% endblock %}

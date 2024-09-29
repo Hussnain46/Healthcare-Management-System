@@ -1,24 +1,99 @@
 {% extends 'user/base.html' %}
 
 {% block content %}
+<div class="timetable-container">
     <h2>Your Availability Timetable</h2>
-    <table>
-        <tr>
-            <th>Day</th>
-            <th>Action</th>
-        </tr>
-        {% for day in object_list %}
-        <tr>
-            <td>{{ day.day }}</td>
-            <td>
-                {% for slot in day.all %}<br>
-                {% endfor %}
-            </td>
-            <td><a href="{% url 'update_availability' day.id %}">Update</a></td>
-        </tr>
-
-
-        {% endfor %}
-        <a href="{% url 'set_availability' %}">set time table</a>
+    <table class="availability-table">
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for day in object_list %}
+            <tr>
+                <td>{{ day.day }}</td>
+                
+                <td>
+                    <a href="{% url 'update_availability' day.id %}" class="btn btn-update">Update</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No availability records found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
+    <div class="set-timetable">
+        <a href="{% url 'set_availability' %}" class="btn btn-set-timetable">Set Availability</a>
+    </div>
+</div>
+
+<style>
+    .timetable-container {
+        max-width: 800px; /* Limit container width */
+        margin: 50px auto; /* Center container */
+        padding: 20px; /* Padding inside container */
+        background-color: #ffffff; /* White background */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    }
+
+    h2 {
+        text-align: center; /* Center heading */
+        color: #2c3e50; /* Dark text color */
+        margin-bottom: 20px; /* Space below heading */
+    }
+
+    .availability-table {
+        width: 100%; /* Full width table */
+        border-collapse: collapse; /* Collapse borders */
+        margin-bottom: 20px; /* Space below table */
+    }
+
+    th, td {
+        border: 1px solid #ddd; /* Light border */
+        padding: 10px; /* Padding inside cells */
+        text-align: center; /* Center text in cells */
+    }
+
+    th {
+        background-color: #4bac60; 
+        color: white; /* White text for header */
+    }
+
+    td {
+        background-color: #f9f9f9; /* Light background for data cells */
+    }
+
+    .btn {
+        display: inline-block; /* Inline-block for buttons */
+        padding: 10px 15px; /* Padding for buttons */
+        border-radius: 5px; /* Rounded corners for buttons */
+        text-decoration: none; /* Remove underline */
+        color: white; /* White text */
+        background-color: #4bac60;
+        transition: background-color 0.3s; /* Transition for hover effect */
+    }
+
+    .btn:hover {
+        background-color: #2980b9; /* Darker blue on hover */
+    }
+
+    .set-timetable {
+        text-align: center; /* Center set timetable button */
+        margin-top: 20px; /* Space above button */
+    }
+
+    .btn-set-timetable {
+        background-color: #2ecc71; /* Green for set timetable button */
+    }
+
+    .btn-set-timetable:hover {
+        background-color: #27ae60; /* Darker green on hover */
+    }
+</style>
+
 {% endblock %}

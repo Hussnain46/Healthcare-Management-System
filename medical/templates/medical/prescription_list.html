@@ -1,6 +1,58 @@
 {% extends 'user/base.html' %}
 
 {% block content %}
+<style>
+    /* Container for the prescriptions section */
+    .prescriptions-container {
+        display: flex;
+        flex-direction: column; /* Align items vertically */
+        justify-content: center; /* Center content vertically */
+        align-items: center; /* Center content horizontally */
+        min-height: 100vh; /* Full viewport height */
+        background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%); /* Background gradient */
+        padding: 20px; /* Padding for the container */
+        box-sizing: border-box; /* Include padding in total height/width */
+    }
+
+    h2 {
+        color: #2c3e50; /* Darker color for the heading */
+        margin-bottom: 20px;
+        text-align: center; /* Center the heading */
+    }
+
+    /* Styled Table */
+    .styled-table {
+        width: 100%; /* Full width for the table */
+        max-width: 800px; /* Maximum width */
+        border-collapse: collapse; /* Collapse borders for cleaner look */
+        margin-bottom: 20px; /* Space below the table */
+        background-color: #ffffff; /* White background for the table */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    }
+
+    th, td {
+        padding: 12px; /* Padding for table cells */
+        text-align: left; /* Align text to the left */
+        border-bottom: 1px solid #ddd; /* Border for table rows */
+    }
+
+    th {
+        background-color: #4caf50; /* Green background for header */
+        color: white; /* White text for header */
+    }
+
+    tr:hover {
+        background-color: #f1f1f1; /* Light gray background on row hover */
+    }
+
+    .no-data {
+        text-align: center; /* Center the no-data message */
+        font-style: italic; /* Italic style for no data message */
+        color: #888; /* Gray color */
+    }
+</style>
+
 <div class="prescriptions-container">
     <h2>Your Prescriptions</h2>
     <table class="styled-table">
@@ -28,4 +80,5 @@
         </tbody>
     </table>
 </div>
+
 {% endblock %}

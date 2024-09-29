@@ -1,0 +1,95 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff; 
+    color: #333;
+    padding-bottom: 60px; /* Ensures space for the footer */
+    margin: 0;
+    min-height: 80vh; /* Ensures the body takes the full height */
+    box-sizing: border-box;
+}
+
+
+footer {
+    background-color: #28a745; 
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px; 
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #28a745;
+    padding: 10px;
+    text-align: right;
+    color: white;
+    z-index: 1000;
+    
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #34c759; /* Lighter green on hover */
+    text-decoration: underline;
+}
+
+
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form input, form select {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    padding: 12px;
+    background-color: #28a745; /* Updated to primary green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+form button:hover {
+    background-color: #218838;  /* Darker green on hover */
+    transform: scale(1.05); /* Slight scale-up effect */
+}
+
+h2 {
+    color: #28a745; /* Green for headings */
+    text-align: center;
+}
+

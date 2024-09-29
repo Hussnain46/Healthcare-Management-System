@@ -1,13 +1,98 @@
 {% extends 'user/base.html' %}
 
 {% block content %}
-<h2>Update Profile</h2>
+<div class="update-profile-container">
+    <h2>Update Your Profile</h2>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Update</button>
-</form>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
 
-<br><button><a href="{% url 'doctor_profile' %}">Back to Profile</a></button>
+    <div class="button-container">
+        <button class="btn btn-secondary"><a href="{% url 'doctor_profile' %}">Back to Profile</a></button>
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif; /* Change font for better readability */
+        background-color: #e9eff1; /* Light background for the body */
+        margin: 0;
+        padding: 0;
+    }
+
+    .update-profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px;
+        background-color: #ffffff; /* White background for contrast */
+        border-radius: 10px; /* More rounded corners */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Deeper shadow for depth */
+        max-width: 600px; /* Limit container width */
+        margin: 50px auto; /* Center the container with margin */
+        box-sizing: border-box;
+        transition: transform 0.3s; /* Animation for hover effect */
+    }
+
+    .update-profile-container:hover {
+        transform: translateY(-5px); /* Lift effect on hover */
+    }
+
+    h2 {
+        color: #2c3e50; /* Darker color for the heading */
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 24px; /* Larger font size */
+        font-weight: 600; /* Bold heading */
+    }
+
+    form {
+        width: 100%; /* Full width form */
+        margin-bottom: 20px; /* Space below the form */
+    }
+
+    .btn {
+        background-color: #28a745; /* Primary button color */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 12px 20px; /* Increased padding for larger buttons */
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s, transform 0.2s; /* Animation for hover effect */
+        cursor: pointer;
+        width: 100%; /* Full width button */
+        font-size: 16px; /* Larger font size for buttons */
+    }
+
+    .btn a {
+        color: white;
+        text-decoration: none; /* Remove underline from links */
+    }
+
+    .btn:hover {
+        background-color: #28a745; /* Darker blue on hover */
+        transform: scale(1.02); /* Slightly enlarge button on hover */
+    }
+
+    .btn-secondary {
+        background-color: #95a5a6; /* Secondary button color */
+    }
+
+    .btn-secondary:hover {
+        background-color: #7f8c8d; /* Darker gray on hover */
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        width: 100%; /* Full width for the button container */
+        margin-top: 20px; /* Space above the buttons */
+    }
+</style>
+
 {% endblock %}
+ 

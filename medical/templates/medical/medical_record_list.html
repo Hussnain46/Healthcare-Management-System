@@ -1,24 +1,62 @@
 {% extends 'user/base.html' %}
 
-{% block title %}view records{% endblock %}
+{% block title %}View Records{% endblock %}
 
 {% block content %}
+<div class="medical-records-container">
+    <h2>Medical Records</h2>
 
-<h2>Your Medical Records</h2>
+    <ul>
+        {% for record in medical_records %}
+            <li class="record-item">
+                <strong>Patient:</strong> {{ record.patient.username }}<br>
+                <strong>Date:</strong> {{ record.record_date }}<br>
+                <strong>Status:</strong> {{ record.status }}<br>
+                <strong>Prescription:</strong> {{ record.prescription }}<br>
+                <strong>Notes:</strong> {{ record.notes }}
+            </li>
+            <hr>
+        {% empty %}
+            <li class="no-data">No medical records available.</li>
+        {% endfor %}
+    </ul>
+</div>
 
-<ul>
-    {% for record in medical_records %}
-        <li>
-            <strong>Patient:</strong> {{ record.patient.username }}<br>
-            <strong>Date:</strong> {{ record.record_date }}<br>
-            <strong>Status:</strong> {{ record.status }}<br>
-            <strong>Prescription:</strong> {{ record.prescription }}<br>
-            <strong>Notes:</strong> {{ record.notes }}
-        </li>
-        <hr>
-    {% empty %}
-        <p>No medical records available.</p>
-    {% endfor %}
-</ul>
+<style>
+    .medical-records-container {
+        max-width: 800px; /* Maximum width for the container */
+        margin: 50px auto; /* Center the container */
+        padding: 20px; /* Padding inside the container */
+        background-color: #ffffff; /* White background for the container */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    }
+
+    h2 {
+        color: #2c3e50; /* Darker color for the heading */
+        text-align: center; /* Center the heading */
+        margin-bottom: 20px; /* Space below the heading */
+    }
+
+    ul {
+        list-style-type: none; /* Remove bullet points */
+        padding: 0; /* Remove padding */
+    }
+
+    .record-item {
+        padding: 15px; /* Padding for each record */
+        border: 1px solid #ddd; /* Light border */
+        border-radius: 8px; /* Rounded corners */
+        margin-bottom: 15px; /* Space between records */
+        background-color: #f9f9f9; /* Light background for records */
+    }
+
+    .no-data {
+        text-align: center; /* Center the no data message */
+        font-style: italic; /* Italic style for no records message */
+        color: #888; /* Gray color */
+        margin-top: 20px; /* Space above the no records message */
+    }
+</style>
 
 {% endblock %}

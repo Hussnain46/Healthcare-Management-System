@@ -19,6 +19,13 @@ urlpatterns = [
     path('doctor-profile/', views.DoctorProfileView.as_view(), name='doctor_profile'),
     path('doctor-p-update/', views.DoctorProfileUpdateView.as_view(), name='doctor_profile_update'),
 
+    path('about/', views.AboutUsView.as_view(), name='about_us'),
+    path('contact/', views.ContactFormView.as_view(), name='contact_us'),
+    path('doctor/<int:pk>/', views.DoctorDetailView.as_view(), name='doctor_detail'),
+
+
+
+
     
 ]
 

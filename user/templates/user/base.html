@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Healthcare Management System{% endblock %}</title>
     
-    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
 </head>
 <body>
     <header>
@@ -23,20 +23,19 @@
                     {% endif %}
                     
                     <li>
-                        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                        <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
                             {% csrf_token %}
-                            <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer;">
-                                Logout
-                            </button>
                         </form>
                     </li>
                 {% else %}
                     <li><a href="{% url 'main_page' %}">Home</a></li>
+                    <li><a href="{% url 'about_us' %}">About Us</a></li>
+                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
                     <li><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
             </ul>
         </nav>
-        
     </header>
 
     <div class="container">
@@ -44,24 +43,8 @@
         {% endblock %}
     </div>
 
-
+    <footer>
+        <p>&copy; 2024 Healthcare Management System</p>
+    </footer>
 </body>
-
-<!-- <footer>
-    <p>&copy; 2024 Healthcare Management System</p>
-</footer>  -->
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

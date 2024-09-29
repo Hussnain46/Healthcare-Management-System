@@ -3,12 +3,75 @@
 {% block title %}Doctor Registration{% endblock %}
 
 {% block content %}
-<h2>Doctor Registration</h2>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
+<style>
+    .full-page-container {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        min-height: 100vh; /* Full viewport height */
+        background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%); /* Background gradient */
+    }
 
+    .registration-container {
+        max-width: 600px; /* Limit the width of the registration form */
+        padding: 20px;
+        background-color: #ffffff; /* White background for the form */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        width: 100%;
+    }
+
+    h2 {
+        text-align: center; /* Center the heading */
+        color: #2c3e50; /* Darker color for the heading */
+        margin-bottom: 20px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column; /* Stack form elements vertically */
+    }
+
+    form input, form select {
+        padding: 12px; /* Increase padding for input fields */
+        margin-bottom: 15px; /* Space between input fields */
+        border: 1px solid #ccc; /* Light border color */
+        border-radius: 5px; /* Rounded corners for inputs */
+        font-size: 16px; /* Increase font size for better readability */
+    }
+
+    .btn-submit {
+        padding: 12px;
+        background-color: #28a745; /* Green background */
+        color: white; /* White text */
+        border: none; /* Remove border */
+        border-radius: 5px; /* Rounded corners */
+        cursor: pointer; /* Change cursor to pointer */
+        font-size: 16px; /* Increase font size */
+        transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+    }
+
+    .btn-submit:hover {
+        background-color: #218838; /* Darker green on hover */
+        transform: translateY(-2px); /* Slight lift effect */
+    }
+
+    .error-message {
+        color: #d9534f; /* Red color for error messages */
+        text-align: center; /* Center the error messages */
+        margin-top: 10px; /* Space above the error messages */
+    }
+</style>
+
+<div class="full-page-container">
+    <div class="registration-container">
+        <h2>Doctor Registration</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-submit">Register</button>
+        </form>
+    </div>
+</div>
 
 {% endblock %}
