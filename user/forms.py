@@ -65,3 +65,10 @@ class PatientUpdateForm(forms.ModelForm):
         model = Patient
         fields = ['contact_number', 'address', 'date_of_birth', 'blood_group', 'emergency_contact', 'profile_pic']
 
+
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100, label="Your Name", widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(label="Your Email", widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    message = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}), label="Your Message")
