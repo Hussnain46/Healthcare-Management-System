@@ -5,7 +5,7 @@
   <form method="post">
     {% csrf_token %}
     <h3>Select Available Days:</h3>
-    {{ form.days }}  <!-- This will render checkboxes for each day -->
+    {{ form.days }}
     <button type="submit">Add Availability Days</button>
 </form>
 {% endblock %}

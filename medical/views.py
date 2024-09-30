@@ -1,9 +1,7 @@
 from django.views.generic import CreateView, ListView, DetailView
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib import messages
 from django.urls import reverse_lazy
-from .forms import PrescriptionForm, MedicalRecordForm
+from .forms import PrescriptionForm
 from appointment.models import Appointment
 from medical.models import Prescription, MedicalRecord
 from user.models import Patient
@@ -38,10 +36,6 @@ class ViewPrescriptionView(DetailView):
         appointment_id = self.kwargs.get('appointment_id')
         appointment = get_object_or_404(Appointment, appointment_id=appointment_id)
         return get_object_or_404(Prescription, appointment=appointment)
-
-
-
-
 
 
 

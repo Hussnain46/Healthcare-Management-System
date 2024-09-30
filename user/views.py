@@ -18,13 +18,30 @@ class PatientRegisterView(CreateView):
     success_url = reverse_lazy('patient_dashboard')
 
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        patient_email = form.cleaned_data.get('email')
+
+        subject = 'Thank you for registering with us'
+        message = f"Dear {self.object.first_name},\n\nThank you for registering with us as a patient. We are glad to have you onboard!\n\nBest Regards,\nHealthcare Management Team"
+        recipient_list = [patient_email]
+
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL, 
+            recipient_list,
+            fail_silently=False,
+        )
+        return response
+
+
 class PatientDashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'user/patient_dashboard.html'
     login_url = 'login'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Add the list of doctors to the context
         context['doctors'] = Doctor.objects.all()
         return context
 
@@ -51,6 +68,28 @@ class DoctorRegisterView(CreateView):
     form_class = DoctorRegistrationForm
     template_name = 'user/doctor_register.html'
     success_url = reverse_lazy('doctor_dashboard')
+
+
+    
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        doctor_email = form.cleaned_data.get('email')
+
+        subject = 'Thank you for registering as a Doctor'
+        message = f"Dear {self.object.first_name},\n\nThank you for registering with us as a doctor. We look forward to working with you.\n\nBest Regards,\nHealthcare Management Team"
+        recipient_list = [doctor_email]
+
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            recipient_list,
+            fail_silently=False,
+        )
+
+        return response
+
 
 
 class DoctorProfileView(LoginRequiredMixin, DetailView):
@@ -103,14 +142,9 @@ class UserLogoutView(LogoutView):
 
 class DoctorDetailView(DetailView):
     model = Doctor
-    template_name = 'user/doctor_detail.html'  # Update with your actual template path
+    template_name = 'user/doctor_detail.html'
     context_object_name = 'doctor'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Add the AppointmentForm to the context
-        context['appointment_form'] = AppointmentForm(initial={'doctor': self.object})  # Automatically set the doctor
-        return context
 
 
 class MainPageView(TemplateView):

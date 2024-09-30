@@ -40,13 +40,10 @@ class DoctorAvailabilityView(LoginRequiredMixin, FormView):
         doctor = self.request.user.doctor
 
         for day in available_days:
-            # Get or create AvailableDay for the selected day
             available_day, created = AvailableDay.objects.get_or_create(doctor=doctor, day=day)
 
-            # Clear existing TimeSlots for the available_day
             TimeSlot.objects.filter(doctor=doctor, day=available_day).delete()
             
-            # Create new TimeSlots
             current_time = start_time
             while current_time < end_time:
                 TimeSlot.objects.create(doctor=doctor, day=available_day, time=current_time)
@@ -107,13 +104,9 @@ class AppointmentRequestListView(LoginRequiredMixin, ListView):
 
 
     def get_queryset(self):
-        # Show only the pending appointment requests for the logged-in doctor
         return Appointment.objects.filter(doctor=self.request.user.doctor, status='Pending')
 
 
-
-from django.contrib import messages
-from django.shortcuts import get_object_or_404, redirect
 
 class ConfirmAppointmentView(View):
     def post(self, request, appointment_id):
@@ -128,22 +121,15 @@ class ConfirmAppointmentView(View):
             # Fetch the latest active medical record for the patient
             medical_record = MedicalRecord.objects.filter(patient=appointment.patient, status='Active').last()
             if medical_record:
-                messages.info(request, f'Latest Medical Record: {medical_record.notes}')  # Display record notes if available
+                messages.info(request, f'Latest Medical Record: {medical_record.notes}')  
             else:
                 messages.info(request, 'No active medical record found for this patient.')
 
         else:
             messages.error(request, 'You do not have permission to confirm this appointment.')
 
-        return redirect('view_appointment_requests')  # Redirect to the view appointment requests page
+        return redirect('view_appointment_requests')
 
-
-
-
-from django.views.generic import ListView
-from django.shortcuts import redirect
-from django.core.exceptions import ObjectDoesNotExist
-from .models import Appointment
 
 class ConfirmedAppointmentsView(ListView):
     model = Appointment
@@ -151,17 +137,13 @@ class ConfirmedAppointmentsView(ListView):
     context_object_name = 'confirmed_appointments'
 
     def get_queryset(self):
-        # Ensure the user has a doctor profile and return confirmed appointments with prescriptions
         try:
             return Appointment.objects.filter(doctor=self.request.user.doctor, status='Confirmed').prefetch_related('prescription')
         except ObjectDoesNotExist:
-            # Redirect to login page if the user doesn't have a doctor profile
             return redirect('login')
 
     def get_context_data(self, **kwargs):
-        # Get the default context
         context = super().get_context_data(**kwargs)
-        # Add any additional context variables if needed
         return context
 
     
