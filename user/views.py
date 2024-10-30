@@ -42,7 +42,27 @@ class PatientDashboardView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['doctors'] = Doctor.objects.all()
+        
+        # Fetch unique addresses and specializations for the filters
+        context['addresses'] = Doctor.objects.values_list('address', flat=True).distinct()
+        context['specializations'] = Doctor.objects.values_list('specialization', flat=True).distinct()
+
+        # Get selected filter values from the request
+        selected_address = self.request.GET.get('address', '')
+        selected_specialization = self.request.GET.get('specialization', '')
+
+        # Apply filters based on the selected values
+        doctors = Doctor.objects.all()
+        if selected_address:
+            doctors = doctors.filter(address=selected_address)
+        if selected_specialization:
+            doctors = doctors.filter(specialization=selected_specialization)
+
+        # Add filtered doctors and selected values to the context
+        context['doctors'] = doctors
+        context['selected_address'] = selected_address
+        context['selected_specialization'] = selected_specialization
+
         return context
 
 

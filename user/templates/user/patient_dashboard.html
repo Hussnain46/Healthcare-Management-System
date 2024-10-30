@@ -101,23 +101,99 @@
         color: #6c757d;
         font-size: 14px;
     }
+
+    /* Styling for the smaller filter form */
+    form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    form label {
+        font-size: 1rem;
+        color: #333;
+    }
+
+    form select {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+        color: #555;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        outline: none;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        width: 180px;
+    }
+
+    form select:focus {
+        background-color: #fff;
+        box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+        border-color: #007bff;
+    }
+
+    form button[type="submit"] {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    form button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    form button[type="submit"]:focus {
+        outline: none;
+        box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+    }
 </style>
+
 
 <div class="full-page-container">
     <div class="dashboard-container">
-        <h2>Welcome, {{ user.first_name }} {{ user.last_name }}!</h2>
+        <h2>Welcome, {{ user.first_name | title }} {{ user.last_name | title }}!</h2>
 
         <div class="button-row">
-            <button><a href="{% url 'book_appointment' %}">Book Appointment</a></button>
-            <button><a href="{% url 'view_booked_appointments' %}">View Your Appointments</a></button>
+            <a href="{% url 'book_appointment' %}"><button>Book Your Appointment</button></a>
+            <a href="{% url 'view_booked_appointments' %}"><button>View Your Appointments</button></a>
         </div>
 
         <div class="button-row">
-            <button class="btn-secondary"><a href="{% url 'patient_prescriptions' %}">View Your Prescriptions</a></button>
-            <button class="btn-secondary"><a href="{% url 'patient_medical_record_list' %}">View Your Medical Records</a></button>
+            <a href="{% url 'patient_prescriptions' %}"><button class="btn-secondary">View Your Prescriptions</button></a>
+            <a href="{% url 'patient_medical_record_list' %}"><button class="btn-secondary">View Your Medical Records</button></a>
         </div>
 
         <h3 class="doctor-heading">Available Doctors</h3>
+
+        <!-- Search Form with City Filter -->
+        <form method="get" action="{% url 'patient_dashboard' %}" class="filter-form">
+            <label for="address">Filter by Address (City):</label>
+            <select name="address" id="address">
+                <option value="">All Addresses</option>
+                {% for address in addresses %}
+                    <option value="{{ address }}" {% if address == selected_address %}selected{% endif %}>{{ address }}</option>
+                {% endfor %}
+            </select>
+        
+            <label for="specialization">Filter by Specialization:</label>
+            <select name="specialization" id="specialization">
+                <option value="">All Specializations</option>
+                {% for specialization in specializations %}
+                    <option value="{{ specialization }}" {% if specialization == selected_specialization %}selected{% endif %}>{{ specialization }}</option>
+                {% endfor %}
+            </select>
+        
+            <button type="submit">Search</button>
+        </form>
+        
 
         <div class="doctor-grid">
             {% for doctor in doctors %}
@@ -129,11 +205,11 @@
                             <img src="{% static 'images/default_profile.png' %}" alt="Default Profile Picture">
                         {% endif %}
                     </a>
-                    <strong><a href="{% url 'doctor_detail' doctor.pk %}">{{ doctor.get_full_name }}</a></strong>
+                    <strong><a href="{% url 'doctor_detail' doctor.pk %}">{{ doctor.get_full_name | title }}</a></strong>
                     <span>({{ doctor.specialization }})</span>
                 </div>
             {% empty %}
-                <p>No doctors available at the moment.</p>
+                <p>No doctors available in this area.</p>
             {% endfor %}
         </div>
     </div>

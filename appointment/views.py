@@ -133,7 +133,7 @@ class ConfirmAppointmentView(View):
 
 class ConfirmedAppointmentsView(ListView):
     model = Appointment
-    template_name = 'appointment/confirmed_appointments.html'  # Your template
+    template_name = 'appointment/confirmed_appointments.html'
     context_object_name = 'confirmed_appointments'
 
     def get_queryset(self):

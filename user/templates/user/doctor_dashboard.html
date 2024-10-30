@@ -4,20 +4,21 @@
 
 {% block content %}
 <div class="dashboard-container">
-    <h2>Welcome Dr. {{ user.first_name }} {{ user.last_name }}</h2>
+    <h2>Welcome Dr. {{ user.first_name |title }} {{ user.last_name |title }}</h2>
     
     <p>Here you can manage appointments and view patient history.</p>
 
     
 
     <div class="button-container">
-        <button class="btn"><a href="{% url 'set_availability' %}">Set Availability Days</a></button>
-        <button class="btn"><a href="{% url 'view_timetable' %}">View Timetable</a></button>
-        <button class="btn"><a href="{% url 'view_appointment_requests' %}">View Appointment Requests</a></button>
-        <button class="btn"><a href="{% url 'confirmed_appointments' %}">See Confirmed Appointments</a></button>
-        <button class="btn"><a href="{% url 'patient_list' %}">View Patient List</a></button>
-        <button class="btn"><a href="{% url 'medical_record_list' %}">View Medical Records</a></button>
+        <a href="{% url 'set_availability' %}" class="btn">Set Availability Days</a>
+        <a href="{% url 'view_timetable' %}" class="btn">View Timetable</a>
+        <a href="{% url 'view_appointment_requests' %}" class="btn">View Appointment Requests</a>
+        <a href="{% url 'confirmed_appointments' %}" class="btn">See Confirmed Appointments</a>
+        <a href="{% url 'patient_list' %}" class="btn">View Patient List</a>
+        <a href="{% url 'medical_record_list' %}" class="btn">View Medical Records</a>
     </div>
+    
 </div>
 
 <style>

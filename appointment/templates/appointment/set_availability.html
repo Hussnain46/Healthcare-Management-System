@@ -22,8 +22,13 @@
             {{ form.end_time }}
         </div>
         
-        <button type="submit" class="btn btn-primary">Set Availability</button>
+        <button type="submit" class="btn btn-primary">Set Availability</button><br>
     </form>
+
+    <div class="button-container">
+        <a href="{% url 'doctor_dashboard' %}" class="btn-link"><button class="btn btn-secondary">Go Back</button></a>
+    </div>
+    
 </div>
 
 <style>
