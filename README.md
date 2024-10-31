@@ -32,10 +32,10 @@
 
 <h2 id="technologies-used">Technologies Used</h2>
 <ul>
+    <li><strong>Frontend</strong>: HTML, CSS, Bootstrap, JavaScript (for interactivity)</li>
     <li><strong>Backend</strong>: Django (Python)</li>
     <li><strong>Database</strong>: SQLite3</li>
-    <li><strong>Frontend</strong>: HTML, CSS, Bootstrap, JavaScript (for interactivity)</li>
-    <li><strong>Other Libraries</strong>:Django Forms for data entry</li>
+    <li><strong>Other Libraries</strong>: Django Forms for data entry</li>
 </ul>
 
 <h2 id="installation">Installation</h2>

@@ -58,9 +58,7 @@ class BookAppointmentView(LoginRequiredMixin, FormView):
     form_class = AppointmentForm
 
     def dispatch(self, request, *args, **kwargs):
-        # Check if the logged-in user is a Patient
         if not hasattr(request.user, 'patient'):
-            # Logout the user and redirect them to the login page if they are not a Patient
             logout(request)
             return redirect(reverse_lazy('login'))
 
